@@ -22,20 +22,38 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pe-Yh-rxn">
-                                <rect key="frame" x="49.5" y="254" width="108" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pe-Yh-rxn">
+                                <rect key="frame" x="49.5" y="180" width="108" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Single Player"/>
+                                <connections>
+                                    <action selector="singleClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YoB-Cs-8ZD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqU-cB-cwu">
+                                <rect key="frame" x="262.5" y="180" width="96" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Multiplayer"/>
+                                <connections>
+                                    <action selector="multiClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E1h-TT-z3n"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="oqU-cB-cwu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.5" id="E6s-g7-R8w"/>
                             <constraint firstItem="9Pe-Yh-rxn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="0.5" id="PIG-z7-ga2"/>
                             <constraint firstItem="Olr-Tv-IVo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="dan-jH-pBr"/>
+                            <constraint firstItem="9Pe-Yh-rxn" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="50" id="oX9-sr-OgK"/>
+                            <constraint firstItem="oqU-cB-cwu" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="50" id="y6V-UF-wRs"/>
                             <constraint firstItem="Olr-Tv-IVo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z5p-Qn-bbp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="multiplayer" destination="oqU-cB-cwu" id="gO9-0U-ylf"/>
+                        <outlet property="singlePlayer" destination="9Pe-Yh-rxn" id="Lj1-Fx-2nJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

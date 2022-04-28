@@ -15,6 +15,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
     var peerID = MCPeerID()
     var browser = MCBrowserViewController()
     var assistant = MCAdvertiserAssistant()
+    @IBOutlet weak var singlePlayer: UIButton!
+    @IBOutlet weak var multiplayer: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,33 +29,42 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessi
         session.delegate = self
         browser.delegate = self
     }
+
+    @IBAction func singleClicked(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if(multiplayer.isSelected==true) {
+            multiplayer.isSelected.toggle()
+        }
+    }
+    
+    @IBAction func multiClicked(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if(singlePlayer.isSelected==true) {
+            singlePlayer.isSelected.toggle()
+        }
+    }
+    
     /* required MCBrowser functions */
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        <#code#>
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        <#code#>
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        <#code#>
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        <#code#>
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        <#code#>
     }
     
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        <#code#>
     }
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        <#code#>
+
     }
 }
 
