@@ -23,15 +23,29 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pe-Yh-rxn">
-                                <rect key="frame" x="49.5" y="180" width="108" height="31"/>
+                                <rect key="frame" x="49.5" y="430" width="108" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Single Player"/>
                                 <connections>
                                     <action selector="singleClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YoB-Cs-8ZD"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="single" translatesAutoresizingMaskIntoConstraints="NO" id="JHP-Sn-91y" userLabel="single">
+                                <rect key="frame" x="28.5" y="230" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="CnP-2M-WEC"/>
+                                    <constraint firstAttribute="height" constant="150" id="gLj-m8-085"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="multi" translatesAutoresizingMaskIntoConstraints="NO" id="Euf-8Z-JMB" userLabel="multi">
+                                <rect key="frame" x="235.5" y="230" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="ruX-VV-66O"/>
+                                    <constraint firstAttribute="height" constant="150" id="vcV-qY-C4e"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqU-cB-cwu">
-                                <rect key="frame" x="262.5" y="180" width="96" height="31"/>
+                                <rect key="frame" x="262.5" y="430" width="96" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Multiplayer"/>
                                 <connections>
@@ -43,10 +57,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="oqU-cB-cwu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.5" id="E6s-g7-R8w"/>
+                            <constraint firstItem="JHP-Sn-91y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="0.5" id="FYa-7K-PXS"/>
+                            <constraint firstItem="Euf-8Z-JMB" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="100" id="Jr5-IJ-l7D"/>
                             <constraint firstItem="9Pe-Yh-rxn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="0.5" id="PIG-z7-ga2"/>
                             <constraint firstItem="Olr-Tv-IVo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="dan-jH-pBr"/>
-                            <constraint firstItem="9Pe-Yh-rxn" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="50" id="oX9-sr-OgK"/>
-                            <constraint firstItem="oqU-cB-cwu" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="50" id="y6V-UF-wRs"/>
+                            <constraint firstItem="Euf-8Z-JMB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.5" id="lDi-CI-sXE"/>
+                            <constraint firstItem="9Pe-Yh-rxn" firstAttribute="top" secondItem="JHP-Sn-91y" secondAttribute="bottom" constant="50" id="oX9-sr-OgK"/>
+                            <constraint firstItem="JHP-Sn-91y" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="100" id="rHr-we-k0N"/>
+                            <constraint firstItem="oqU-cB-cwu" firstAttribute="top" secondItem="Euf-8Z-JMB" secondAttribute="bottom" constant="50" id="y6V-UF-wRs"/>
                             <constraint firstItem="Olr-Tv-IVo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z5p-Qn-bbp"/>
                         </constraints>
                     </view>
@@ -61,6 +79,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="multi" width="90" height="90"/>
+        <image name="single" width="100" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

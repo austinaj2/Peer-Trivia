@@ -11,10 +11,10 @@ import MultipeerConnectivity
 
 class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCSessionDelegate, UINavigationControllerDelegate  {
     
-    var session = MCSession()
-    var peerID = MCPeerID()
-    var browser = MCBrowserViewController()
-    var assistant = MCAdvertiserAssistant()
+    var session: MCSession!
+    var peerID: MCPeerID!
+    var browser: MCBrowserViewController!
+    var assistant: MCAdvertiserAssistant!
     @IBOutlet weak var singlePlayer: UIButton!
     @IBOutlet weak var multiplayer: UIButton!
     
