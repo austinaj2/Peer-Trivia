@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="spl-Sc-uhi">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer Trivia" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olr-Tv-IVo">
-                                <rect key="frame" x="124" y="94" width="166" height="36"/>
-                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="31"/>
+                                <rect key="frame" x="100" y="138" width="214" height="46.5"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pe-Yh-rxn">
-                                <rect key="frame" x="49.5" y="430" width="108" height="31"/>
+                                <rect key="frame" x="49.5" y="457" width="108" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Single Player"/>
                                 <connections>
@@ -31,21 +31,21 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="single" translatesAutoresizingMaskIntoConstraints="NO" id="JHP-Sn-91y" userLabel="single">
-                                <rect key="frame" x="28.5" y="230" width="150" height="150"/>
+                                <rect key="frame" x="21" y="277" width="165" height="165"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="CnP-2M-WEC"/>
-                                    <constraint firstAttribute="height" constant="150" id="gLj-m8-085"/>
+                                    <constraint firstAttribute="width" constant="165" id="CnP-2M-WEC"/>
+                                    <constraint firstAttribute="height" constant="165" id="gLj-m8-085"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="multi" translatesAutoresizingMaskIntoConstraints="NO" id="Euf-8Z-JMB" userLabel="multi">
-                                <rect key="frame" x="235.5" y="230" width="150" height="150"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="multiii" translatesAutoresizingMaskIntoConstraints="NO" id="Euf-8Z-JMB" userLabel="multi">
+                                <rect key="frame" x="230.5" y="274.5" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="ruX-VV-66O"/>
-                                    <constraint firstAttribute="height" constant="150" id="vcV-qY-C4e"/>
+                                    <constraint firstAttribute="width" constant="160" id="ruX-VV-66O"/>
+                                    <constraint firstAttribute="height" constant="160" id="vcV-qY-C4e"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqU-cB-cwu">
-                                <rect key="frame" x="262.5" y="430" width="96" height="31"/>
+                                <rect key="frame" x="262.5" y="457" width="96" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Multiplayer"/>
                                 <connections>
@@ -58,28 +58,54 @@
                         <constraints>
                             <constraint firstItem="oqU-cB-cwu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.5" id="E6s-g7-R8w"/>
                             <constraint firstItem="JHP-Sn-91y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="0.5" id="FYa-7K-PXS"/>
-                            <constraint firstItem="Euf-8Z-JMB" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="100" id="Jr5-IJ-l7D"/>
+                            <constraint firstItem="Euf-8Z-JMB" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="90" id="Jr5-IJ-l7D"/>
                             <constraint firstItem="9Pe-Yh-rxn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="0.5" id="PIG-z7-ga2"/>
                             <constraint firstItem="Olr-Tv-IVo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="dan-jH-pBr"/>
                             <constraint firstItem="Euf-8Z-JMB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.5" id="lDi-CI-sXE"/>
-                            <constraint firstItem="9Pe-Yh-rxn" firstAttribute="top" secondItem="JHP-Sn-91y" secondAttribute="bottom" constant="50" id="oX9-sr-OgK"/>
-                            <constraint firstItem="JHP-Sn-91y" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="100" id="rHr-we-k0N"/>
-                            <constraint firstItem="oqU-cB-cwu" firstAttribute="top" secondItem="Euf-8Z-JMB" secondAttribute="bottom" constant="50" id="y6V-UF-wRs"/>
+                            <constraint firstItem="9Pe-Yh-rxn" firstAttribute="top" secondItem="JHP-Sn-91y" secondAttribute="bottom" constant="15" id="oX9-sr-OgK"/>
+                            <constraint firstItem="oqU-cB-cwu" firstAttribute="centerY" secondItem="9Pe-Yh-rxn" secondAttribute="centerY" id="qKp-K5-WFh"/>
+                            <constraint firstItem="JHP-Sn-91y" firstAttribute="top" secondItem="Olr-Tv-IVo" secondAttribute="bottom" constant="92.5" id="rHr-we-k0N"/>
                             <constraint firstItem="Olr-Tv-IVo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z5p-Qn-bbp"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="6li-t0-zje">
+                        <barButtonItem key="rightBarButtonItem" title="Connect" id="l2R-YY-9Ql">
+                            <connections>
+                                <action selector="connect:" destination="BYZ-38-t0r" id="C3U-JK-1aE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="connectivity" destination="l2R-YY-9Ql" id="MzS-Kq-lhx"/>
                         <outlet property="multiplayer" destination="oqU-cB-cwu" id="gO9-0U-ylf"/>
                         <outlet property="singlePlayer" destination="9Pe-Yh-rxn" id="Lj1-Fx-2nJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35" y="98"/>
+            <point key="canvasLocation" x="944.92753623188412" y="97.767857142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5zl-CE-LFS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="spl-Sc-uhi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="49Z-7x-sNQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="tZ0-fp-5y0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zHo-eF-eBg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34.782608695652179" y="97.767857142857139"/>
         </scene>
     </scenes>
     <resources>
-        <image name="multi" width="90" height="90"/>
+        <image name="multiii" width="100" height="100"/>
         <image name="single" width="100" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
