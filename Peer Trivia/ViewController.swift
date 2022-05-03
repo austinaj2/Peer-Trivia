@@ -13,30 +13,26 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     
     var join: UIAlertController!
     var session: MCSession!
-    var peerID: MCPeerID!
-    var connections = 0
-    var browser: MCBrowserViewController!
     var assistant: MCAdvertiserAssistant!
+    var connections = 0
+    var localPeerID: MCPeerID!
+    var mcBrowser: MCBrowserViewController!
     @IBOutlet weak var singlePlayer: UIButton!
     @IBOutlet weak var connectivity: UIBarButtonItem!
     @IBOutlet weak var multiplayer: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.peerID = MCPeerID(displayName: UIDevice.current.name)
-        self.session = MCSession(peer: peerID)
-        self.browser = MCBrowserViewController(serviceType: "chat", session: session)
-        self.assistant = MCAdvertiserAssistant(serviceType: "chat", discoveryInfo: nil, session: session)
-        
-        assistant.start()
-        assistant.delegate = self
-        browser.delegate = self
+        localPeerID = MCPeerID(displayName: UIDevice.current.name)
+        self.session = MCSession(peer: localPeerID, securityIdentity: nil, encryptionPreference: .required)
+        session.delegate = self
     }
     
     func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+        print("Connected to \(peerID.displayName)")
+        session.connectPeer(peerID, withNearbyConnectionData: Data())
+        print(session.connectedPeers)
         certificateHandler(true)
-        print("connected to \(peerID)")
-        
     }
 
     @IBAction func singleClicked(_ sender: UIButton) {
@@ -54,7 +50,19 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     }
     
     @IBAction func connect(_ sender: UIBarButtonItem) {
-        present(browser, animated: true, completion: nil)
+        let sheet = UIAlertController(title: nil, message: "How do you want to connect?", preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Host Session", style: .default, handler: { (action: UIAlertAction) in
+            self.assistant = MCAdvertiserAssistant(serviceType: "chat", discoveryInfo: nil, session: self.session)
+//            self.assistant.delegate = self
+            self.assistant.start()
+        }))
+        sheet.addAction(UIAlertAction(title: "Join Session", style: .default, handler: { (action: UIAlertAction) in
+            self.mcBrowser = MCBrowserViewController(serviceType: "chat", session: self.session)
+            self.mcBrowser.delegate = self
+            self.present(self.mcBrowser, animated: true, completion: nil)
+        }))
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(sheet, animated: true, completion: nil)
     }
     
     /* required MCBrowser functions */
@@ -83,12 +91,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     }
         
     func advertiserAssistantWillPresentInvitation(_ advertiserAssistant: MCAdvertiserAssistant) {
+        
     }
     
     
     func advertiserAssistantDidDismissInvitation(_ advertiserAssistant: MCAdvertiserAssistant) {
-        print(advertiserAssistant.session.myPeerID)
-        advertiserAssistant.session.connectPeer(advertiserAssistant.session.myPeerID, withNearbyConnectionData: Data())
     }
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("ok")
