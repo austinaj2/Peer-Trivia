@@ -20,26 +20,79 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     @IBOutlet weak var singlePlayer: UIButton!
     @IBOutlet weak var connectivity: UIBarButtonItem!
     @IBOutlet weak var multiplayer: UIButton!
+    @IBOutlet weak var player1img: UIImageView!
+    @IBOutlet weak var player2img: UIImageView!
+    @IBOutlet weak var player4img: UIImageView!
+    @IBOutlet weak var player3img: UIImageView!
+    @IBOutlet weak var player1Lbl: UILabel!
+    @IBOutlet weak var player2Lbl: UILabel!
+    @IBOutlet weak var player3Lbl: UILabel!
+    @IBOutlet weak var player4Lbl: UILabel!
+    @IBOutlet weak var start: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        connectivity.isEnabled = false
+        connectivity.tintColor = .gray
         localPeerID = MCPeerID(displayName: UIDevice.current.name)
         self.session = MCSession(peer: localPeerID, securityIdentity: nil, encryptionPreference: .required)
         session.delegate = self
+        player1Lbl.text = "Me"
+        player2Lbl.text = "Not connected..."
+        player3Lbl.text = "Not connected..."
+        player4Lbl.text = "Not connected..."
+        player1img.isHidden = true
+        player2img.isHidden = true
+        player3img.isHidden = true
+        player4img.isHidden = true
+        player1Lbl.isHidden = true
+        player2Lbl.isHidden = true
+        player3Lbl.isHidden = true
+        player4Lbl.isHidden = true
+        player1img.backgroundColor = .systemGreen
+        start.tintColor = .gray
+        start.isEnabled = false
     }
     
     func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
-        print("Connected to \(peerID.displayName)")
-        session.connectPeer(peerID, withNearbyConnectionData: Data())
-        print(session.connectedPeers)
-        certificateHandler(true)
+        if session.connectedPeers.count < 3 {
+            certificateHandler(true)
+        }
+        else {
+            certificateHandler(false)
+        }
     }
+
 
     @IBAction func singleClicked(_ sender: UIButton) {
         sender.isSelected.toggle()
         if(multiplayer.isSelected==true) {
             multiplayer.isSelected.toggle()
         }
+        if(connectivity.isEnabled==true) {
+            connectivity.isEnabled = false
+            connectivity.tintColor = .gray
+        }
+        if(session.connectedPeers.count==0) {
+            start.isEnabled = true
+            start.tintColor = .systemBlue
+        }
+        else {
+            start.isEnabled = false
+            start.tintColor = .gray
+        }
+        player1img.isHidden = true
+        player2img.isHidden = true
+        player3img.isHidden = true
+        player4img.isHidden = true
+        player1Lbl.isHidden = true
+        player2Lbl.isHidden = true
+        player3Lbl.isHidden = true
+        player4Lbl.isHidden = true
+    }
+    
+    @IBAction func startQuiz(_ sender: UIButton) {
+        
     }
     
     @IBAction func multiClicked(_ sender: UIButton) {
@@ -47,6 +100,26 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
         if(singlePlayer.isSelected==true) {
             singlePlayer.isSelected.toggle()
         }
+        if(connectivity.isEnabled==false) {
+            connectivity.isEnabled = true
+            connectivity.tintColor = .systemBlue
+        }
+        if(session.connectedPeers.count>0) {
+            start.isEnabled = true
+            start.tintColor = .systemBlue
+        }
+        else {
+            start.isEnabled = false
+            start.tintColor = .gray
+        }
+        player1img.isHidden = false
+        player2img.isHidden = false
+        player3img.isHidden = false
+        player4img.isHidden = false
+        player1Lbl.isHidden = false
+        player2Lbl.isHidden = false
+        player3Lbl.isHidden = false
+        player4Lbl.isHidden = false
     }
     
     @IBAction func connect(_ sender: UIBarButtonItem) {
@@ -79,11 +152,108 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
         DispatchQueue.main.async {
             switch state {
             case .notConnected:
-                print("Connected: \(peerID.displayName)")
+                print("Not connected: \(peerID.displayName)")
+                if self.multiplayer.isSelected == true {
+                    if(session.connectedPeers.count>0) {
+                        self.start.isEnabled = true
+                        self.start.tintColor = .systemBlue
+                    }
+                    else {
+                        self.start.isEnabled = false
+                        self.start.tintColor = .gray
+                    }
+                }
+                if self.singlePlayer.isSelected == true {
+                    if(session.connectedPeers.count==0) {
+                        self.start.isEnabled = true
+                        self.start.tintColor = .systemBlue
+                    }
+                    else {
+                        self.start.isEnabled = false
+                        self.start.tintColor = .gray
+                    }
+                }
+                var cons = [String]()
+                if session.connectedPeers.count>0 {
+                    for i in 0...2 {
+                        if i < session.connectedPeers.count {
+                            cons.append(session.connectedPeers[i].displayName)
+                        }
+                        else {
+                            cons.append("Not connected...")
+                        }
+                    }
+                    self.player2Lbl.text = cons[0]
+                    self.player3Lbl.text = cons[1]
+                    self.player4Lbl.text = cons[2]
+                    print(cons)
+                }
+                else {
+                    self.player2Lbl.text = "Not connected..."
+                    self.player3Lbl.text = "Not connected..."
+                    self.player4Lbl.text = "Not connected..."
+                }
+                if self.player2Lbl.text == "Not connected..." {
+                    self.player2img.backgroundColor = .clear
+                }
+                if self.player3Lbl.text == "Not connected..." {
+                    self.player3img.backgroundColor = .clear
+                }
+                if self.player4Lbl.text == "Not connected..." {
+                    self.player4img.backgroundColor = .clear
+                }
             case .connecting:
                 print("Connecting: \(peerID.displayName)")
             case .connected:
-                print("Not Connected: \(peerID.displayName)")
+                print("Connected: \(peerID.displayName)")
+                if self.multiplayer.isSelected == true {
+                    if(session.connectedPeers.count>0) {
+                        self.start.isEnabled = true
+                        self.start.tintColor = .systemBlue
+                    }
+                    else {
+                        self.start.isEnabled = false
+                        self.start.tintColor = .gray
+                    }
+                }
+                if self.singlePlayer.isSelected == true {
+                    if(session.connectedPeers.count==0) {
+                        self.start.isEnabled = true
+                        self.start.tintColor = .systemBlue
+                    }
+                    else {
+                        self.start.isEnabled = false
+                        self.start.tintColor = .gray
+                    }
+                }
+                print(session.connectedPeers.count)
+                var cons = [String]()
+                if session.connectedPeers.count>0 {
+                    for i in 0...2 {
+                        if i < session.connectedPeers.count {
+                            cons.append(session.connectedPeers[i].displayName)
+                        }
+                        else {
+                            cons.append("Not connected...")
+                        }
+                    }
+                    self.player2Lbl.text = cons[0]
+                    self.player3Lbl.text = cons[1]
+                    self.player4Lbl.text = cons[2]
+                    print(cons)
+                }
+                if self.player2Lbl.text != "Not connected..." {
+                    self.player2img.image = UIImage(named: "black")
+                    self.player2img.backgroundColor = .systemOrange
+                }
+                if self.player3Lbl.text != "Not connected..." {
+                    self.player3img.image = UIImage(named: "w")
+                    self.player3img.backgroundColor = .systemRed
+                }
+                if self.player4Lbl.text != "Not connected..." {
+                    self.player4img.image = UIImage(named: "black")
+                    self.player4img.backgroundColor = .systemYellow
+                }
             @unknown default:
                 fatalError()
             }
@@ -94,31 +264,25 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
         
     }
     
-    
     func advertiserAssistantDidDismissInvitation(_ advertiserAssistant: MCAdvertiserAssistant) {
+        
     }
+    
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("ok")
-        print("DUDDDDDDDDEEEEEEEE!!!!\n\n\n\n\n")
+
 
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        print("ok")
-        print("DUDDDDDDDDEEEEEEEE!!!!\n\n\n\n\n")
+
 
     }
     
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        print("ok")
-        print("DUDDDDDDDDEEEEEEEE!!!!\n\n\n\n\n")
 
     }
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        print("ok")
-        print("DUDDDDDDDDEEEEEEEE!!!!\n\n\n\n\n")
-
 
     }
 }
