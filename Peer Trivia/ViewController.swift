@@ -49,9 +49,22 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
         player2Lbl.isHidden = true
         player3Lbl.isHidden = true
         player4Lbl.isHidden = true
-        player1img.backgroundColor = .systemGreen
         start.tintColor = .gray
         start.isEnabled = false
+    }
+    
+    /* Passing data through segue */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToQuiz" {
+            if let nextVC = segue.destination as? QuizController {
+                nextVC.player1 = Player(score: 0, img: player1img.image!, name: player1Lbl.text!)
+                nextVC.player2 = Player(score: 0, img: player2img.image!, name: player2Lbl.text!)
+                nextVC.player3 = Player(score: 0, img: player3img.image!, name: player3Lbl.text!)
+                nextVC.player4 = Player(score: 0, img: player4img.image!, name: player4Lbl.text!)
+                nextVC.session = session
+                nextVC.localPeerID = localPeerID
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
@@ -92,7 +105,19 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     }
     
     @IBAction func startQuiz(_ sender: UIButton) {
-        
+        sender.isSelected.toggle()
+        if singlePlayer.isSelected {
+            self.performSegue(withIdentifier: "goToQuiz", sender: self)
+        }
+        if multiplayer.isSelected {
+            if start.isSelected {
+                self.performSegue(withIdentifier: "goToQuiz", sender: self)
+            }
+        }
+    }
+    
+    @objc func nextPage() {
+        performSegue(withIdentifier: "goToQuiz", sender: self)
     }
     
     @IBAction func multiClicked(_ sender: UIButton) {
@@ -194,13 +219,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
                     self.player4Lbl.text = "Not connected..."
                 }
                 if self.player2Lbl.text == "Not connected..." {
-                    self.player2img.backgroundColor = .clear
+                    self.player2img.image = UIImage(named: "white")
                 }
                 if self.player3Lbl.text == "Not connected..." {
-                    self.player3img.backgroundColor = .clear
+                    self.player3img.image = UIImage(named: "white")
                 }
                 if self.player4Lbl.text == "Not connected..." {
-                    self.player4img.backgroundColor = .clear
+                    self.player4img.image = UIImage(named: "white")
                 }
             case .connecting:
                 print("Connecting: \(peerID.displayName)")
@@ -243,16 +268,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
                     print(cons)
                 }
                 if self.player2Lbl.text != "Not connected..." {
-                    self.player2img.image = UIImage(named: "black")
-                    self.player2img.backgroundColor = .systemOrange
+                    self.player2img.image = UIImage(named: "orange")
                 }
                 if self.player3Lbl.text != "Not connected..." {
-                    self.player3img.image = UIImage(named: "w")
-                    self.player3img.backgroundColor = .systemRed
+                    self.player3img.image = UIImage(named: "pink")
                 }
                 if self.player4Lbl.text != "Not connected..." {
-                    self.player4img.image = UIImage(named: "black")
-                    self.player4img.backgroundColor = .systemYellow
+                    self.player4img.image = UIImage(named: "blue")
                 }
             @unknown default:
                 fatalError()
@@ -284,6 +306,24 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
 
+    }
+}
+
+class Player {
+    var score: Int
+    var img: UIImage
+    var name: String
+
+    init() {
+        self.score = 0
+        self.img = UIImage()
+        self.name = ""
+    }
+    
+    init(score: Int, img: UIImage, name: String) {
+        self.score = score
+        self.img = img
+        self.name = name
     }
 }
 

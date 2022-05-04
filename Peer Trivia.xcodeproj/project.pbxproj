@@ -16,6 +16,7 @@
 		84C836F6281B1FA600BC25EF /* Peer_TriviaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C836F5281B1FA600BC25EF /* Peer_TriviaTests.swift */; };
 		84C83700281B1FA600BC25EF /* Peer_TriviaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C836FF281B1FA600BC25EF /* Peer_TriviaUITests.swift */; };
 		84C83702281B1FA600BC25EF /* Peer_TriviaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C83701281B1FA600BC25EF /* Peer_TriviaUITestsLaunchTests.swift */; };
+		91614DE3282234EA00F6E854 /* QuizController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91614DE2282234EA00F6E854 /* QuizController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		84C836FB281B1FA600BC25EF /* Peer TriviaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Peer TriviaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C836FF281B1FA600BC25EF /* Peer_TriviaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer_TriviaUITests.swift; sourceTree = "<group>"; };
 		84C83701281B1FA600BC25EF /* Peer_TriviaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer_TriviaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		91614DE2282234EA00F6E854 /* QuizController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				84C836DB281B1FA400BC25EF /* AppDelegate.swift */,
 				84C836DF281B1FA400BC25EF /* ViewController.swift */,
 				84C836E1281B1FA400BC25EF /* Main.storyboard */,
+				91614DE2282234EA00F6E854 /* QuizController.swift */,
 				84C836E7281B1FA600BC25EF /* Assets.xcassets */,
 				84C836E9281B1FA600BC25EF /* LaunchScreen.storyboard */,
 				84C836EC281B1FA600BC25EF /* Info.plist */,
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91614DE3282234EA00F6E854 /* QuizController.swift in Sources */,
 				84C836E0281B1FA400BC25EF /* ViewController.swift in Sources */,
 				84C836DC281B1FA400BC25EF /* AppDelegate.swift in Sources */,
 				84C836E6281B1FA400BC25EF /* Peer_Trivia.xcdatamodeld in Sources */,
