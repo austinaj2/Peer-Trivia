@@ -61,7 +61,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
                 nextVC.player2 = Player(score: 0, img: player2img.image!, name: player2Lbl.text!)
                 nextVC.player3 = Player(score: 0, img: player3img.image!, name: player3Lbl.text!)
                 nextVC.player4 = Player(score: 0, img: player4img.image!, name: player4Lbl.text!)
-                nextVC.session = session
+                nextVC.session = self.session
                 nextVC.localPeerID = localPeerID
             }
         }
@@ -110,9 +110,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
             self.performSegue(withIdentifier: "goToQuiz", sender: self)
         }
         if multiplayer.isSelected {
-            if start.isSelected {
-                self.performSegue(withIdentifier: "goToQuiz", sender: self)
+            /* send to peers  */
+            let data = "start".data(using: .utf8)
+            do {
+                try session.send(data!, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print(error.localizedDescription)
             }
+            self.performSegue(withIdentifier: "goToQuiz", sender: self)
         }
     }
     
@@ -289,10 +294,15 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     func advertiserAssistantDidDismissInvitation(_ advertiserAssistant: MCAdvertiserAssistant) {
         
     }
-    
+
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-
-
+        DispatchQueue.main.async {
+            guard let message = String(data: data, encoding: .utf8) else { return }
+            print("-----------------")
+            print(message)
+            self.performSegue(withIdentifier: "goToQuiz", sender: self)
+            print("-----------------")
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
