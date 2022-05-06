@@ -45,6 +45,10 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     @IBOutlet weak var answerD: UIButton!
     @IBOutlet weak var final: UIButton!
     var qs = [[String: Any]]()
+    @IBOutlet weak var score1: UILabel!
+    @IBOutlet weak var score2: UILabel!
+    @IBOutlet weak var score3: UILabel!
+    @IBOutlet weak var score4: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,14 +79,14 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
         }
         task.resume()
         print(qs)
-        timeCount = 20
+        timeCount = 23
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countdown), userInfo: nil, repeats: true)
         bubble1.isHidden = true
         bubble2.isHidden = true
         bubble3.isHidden = true
         bubble4.isHidden = true
         player1img.image = player1.img
-        player1Lbl.text = player1.name
+        player1Lbl.text = "You"
         player2img.image = player2.img
         player2Lbl.text = player2.name
         player3img.image = player3.img
@@ -92,15 +96,18 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
         if player2.name == "Not connected..." {
             player2img.isHidden = true
             player2Lbl.isHidden = true
+            score2.isHidden = true
             
         }
         if player3.name == "Not connected..." {
             player3img.isHidden = true
             player3Lbl.isHidden = true
+            score3.isHidden = true
         }
         if player4.name == "Not connected..." {
             player4img.isHidden = true
             player4Lbl.isHidden = true
+            score4.isHidden = true
         }
     }
     
@@ -124,9 +131,8 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
 
     @IBAction func clickA(_ sender: UIButton) {
         finAnswer = "A"
-        timeLabel.text = "READY?"
         if sender.backgroundColor == .opaqueSeparator {
-            sender.backgroundColor = .systemGreen
+            sender.backgroundColor = .systemOrange
             answerB.backgroundColor = .opaqueSeparator
             answerC.backgroundColor = .opaqueSeparator
             answerD.backgroundColor = .opaqueSeparator
@@ -140,7 +146,7 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     @IBAction func clickB(_ sender: UIButton) {
         finAnswer = "B"
         if sender.backgroundColor == .opaqueSeparator {
-            sender.backgroundColor = .systemGreen
+            sender.backgroundColor = .systemOrange
             answerA.backgroundColor = .opaqueSeparator
             answerC.backgroundColor = .opaqueSeparator
             answerD.backgroundColor = .opaqueSeparator
@@ -153,7 +159,7 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     @IBAction func clickC(_ sender: UIButton) {
         finAnswer = "C"
         if sender.backgroundColor == .opaqueSeparator {
-            sender.backgroundColor = .systemGreen
+            sender.backgroundColor = .systemOrange
             answerB.backgroundColor = .opaqueSeparator
             answerA.backgroundColor = .opaqueSeparator
             answerD.backgroundColor = .opaqueSeparator
@@ -167,7 +173,7 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     @IBAction func clickD(_ sender: UIButton) {
         if sender.backgroundColor == .opaqueSeparator {
             finAnswer = "D"
-            sender.backgroundColor = .systemGreen
+            sender.backgroundColor = .systemOrange
             answerB.backgroundColor = .opaqueSeparator
             answerC.backgroundColor = .opaqueSeparator
             answerA.backgroundColor = .opaqueSeparator
@@ -181,7 +187,22 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     
     @IBAction func finalize(_ sender: UIButton) {
         let data = finAnswer.data(using: .utf8)
+        if finAnswer == "A" {
+            answerA.backgroundColor = .systemGreen
+        }
+        if finAnswer == "B" {
+            answerB.backgroundColor = .systemGreen
+        }
+        if finAnswer == "C" {
+            answerC.backgroundColor = .systemGreen
+        }
+        if finAnswer == "D" {
+            answerD.backgroundColor = .systemGreen
+        }
         print(finAnswer)
+        bubble1img.isHidden = false
+        bubble1.isHidden = false
+        bubble1.text = finAnswer
         do {
             try session.send(data!, toPeers: session.connectedPeers, with: .reliable)
         } catch {
@@ -314,16 +335,63 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     }
     
     @objc func countdown() {
-        let form = timeFormatter(secs: timeCount)
+        let form = timeFormatter(secs: timeCount-3)
         let timeString = timeStringFormatter(formatted: form)
-        if timeCount > 0 {
+        if timeCount > 3 {
             timeLabel.text = timeString
+            timeCount -= 1
+            bubble1img.backgroundColor = .clear
+            bubble2img.backgroundColor = .clear
+            bubble3img.backgroundColor = .clear
+            bubble4img.backgroundColor = .clear
+        }
+        else if timeCount > 0 && timeCount <= 3 {
+            timeLabel.text = "0:00"
+            let correct = self.qs[qNum]["correctOption"]
+            print(correct as! String)
+            print(finAnswer)
+            if timeCount == 2 {
+                if finAnswer == correct as? String {
+                    player1.score += 1
+                    score1.text = "\(player1.score)"
+                    bubble1img.backgroundColor = .systemGreen
+                }
+                if bubble2.text == correct as? String {
+                    player2.score += 1
+                    score2.text = "\(player2.score)"
+                    bubble2img.backgroundColor = .systemGreen
+                }
+                if bubble3.text == correct as? String {
+                    player3.score += 1
+                    score3.text = "\(player3.score)"
+                    bubble3img.backgroundColor = .systemGreen
+                }
+                if bubble4.text == correct as? String {
+                    player4.score += 1
+                    score4.text = "\(player4.score)"
+                    bubble4img.backgroundColor = .systemGreen
+                }
+            }
             timeCount -= 1
         }
         else if timeCount == 0 {
             if qNum<qs.count-1 {
+                print(player1.name)
+                print(player1.score)
+                bubble1.isHidden = true
+                bubble2.isHidden = true
+                bubble3.isHidden = true
+                bubble4.isHidden = true
+                bubble1img.isHidden = true
+                bubble2img.isHidden = true
+                bubble3img.isHidden = true
+                bubble4img.isHidden = true
+                timeCount = 23
                 timeLabel.text = timeString
-                timeCount = 20
+                answerA.backgroundColor = .opaqueSeparator
+                answerB.backgroundColor = .opaqueSeparator
+                answerC.backgroundColor = .opaqueSeparator
+                answerD.backgroundColor = .opaqueSeparator
                 qNum += 1
                 qNumLabel.text = "Question \(qNum+1)/4"
                 if session.connectedPeers.count > 0 {
@@ -377,12 +445,57 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
                 }
             }
             else {
-                timeLabel.text = timeString
+                timeLabel.text = "0:00"
+                timer.invalidate()
                 qNumLabel.text = "GAME OVER!"
+                var max = 0
+                var winner = ""
+                if max < Int(score1.text!)! {
+                    max = Int(score1.text!)!
+                    winner = "You won"
+                }
+                if max < Int(score2.text!)! {
+                    max = Int(score2.text!)!
+                    winner = "\(String(describing: player2Lbl.text)) wins"
+                }
+                if max < Int(score3.text!)! {
+                    max = Int(score3.text!)!
+                    winner = "\(String(describing: player3Lbl.text)) wins"
+                }
+                if max < Int(score4.text!)! {
+                    max = Int(score4.text!)!
+                    winner = "\(String(describing: player4Lbl.text)) wins"
+                }
+                if session.connectedPeers.count > 0 {
+                    question.text = "\(winner)!\nThanks for playing!\nTo play again return to the home screen..."
+                }
+                else {
+                    question.text = "Your score was: \(String(describing: score1.text))!\nThanks for playing!\nTo play again return to the home screen..."
+                }
+                answerA.setTitle("A", for: .normal)
+                answerB.setTitle("B", for: .normal)
+                answerC.setTitle("C", for: .normal)
+                answerD.setTitle("D", for: .normal)
+                bubble1.isHidden = true
+                bubble2.isHidden = true
+                bubble3.isHidden = true
+                bubble4.isHidden = true
+                bubble1img.isHidden = true
+                bubble2img.isHidden = true
+                bubble3img.isHidden = true
+                bubble4img.isHidden = true
+                answerA.backgroundColor = .opaqueSeparator
+                answerB.backgroundColor = .opaqueSeparator
+                answerC.backgroundColor = .opaqueSeparator
+                answerD.backgroundColor = .opaqueSeparator
+                print(player1.score)
+                print(player2.score)
+                print(player3.score)
+                print(player4.score)
             }
         }
         else {
-            timeLabel.text = timeString
+            timeLabel.text = "0:00"
             timer.invalidate()
         }
     }

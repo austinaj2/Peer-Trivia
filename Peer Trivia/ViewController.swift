@@ -57,7 +57,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate, MCAdver
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToQuiz" {
             if let nextVC = segue.destination as? QuizController {
-                nextVC.player1 = Player(score: 0, img: player1img.image!, name: player1Lbl.text!)
+                nextVC.player1 = Player(score: 0, img: player1img.image!, name: UIDevice.current.name)
                 nextVC.player2 = Player(score: 0, img: player2img.image!, name: player2Lbl.text!)
                 nextVC.player3 = Player(score: 0, img: player3img.image!, name: player3Lbl.text!)
                 nextVC.player4 = Player(score: 0, img: player4img.image!, name: player4Lbl.text!)
