@@ -78,7 +78,6 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
                 }
         }
         task.resume()
-        print(qs)
         timeCount = 23
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(countdown), userInfo: nil, repeats: true)
         bubble1.isHidden = true
@@ -199,7 +198,6 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
         if finAnswer == "D" {
             answerD.backgroundColor = .systemGreen
         }
-        print(finAnswer)
         bubble1img.isHidden = false
         bubble1.isHidden = false
         bubble1.text = finAnswer
@@ -230,7 +228,6 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
                             cons.append("Not connected...")
                         }
                     }
-                    print(cons)
                 }
             @unknown default:
                 fatalError()
@@ -241,7 +238,6 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         DispatchQueue.main.async {
             guard let message = String(data: data, encoding: .utf8) else { return }
-            print(peerID.displayName)
             if message == "00" {
                 self.question.text = self.qs[0]["questionSentence"] as? String
                 let arr = self.qs[0]["options"]
@@ -348,8 +344,6 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
         else if timeCount > 0 && timeCount <= 3 {
             timeLabel.text = "0:00"
             let correct = self.qs[qNum]["correctOption"]
-            print(correct as! String)
-            print(finAnswer)
             if timeCount == 2 {
                 if finAnswer == correct as? String {
                     player1.score += 1
@@ -376,8 +370,6 @@ class QuizController: UIViewController, MCSessionDelegate, URLSessionDownloadDel
         }
         else if timeCount == 0 {
             if qNum<qs.count-1 {
-                print(player1.name)
-                print(player1.score)
                 bubble1.isHidden = true
                 bubble2.isHidden = true
                 bubble3.isHidden = true
